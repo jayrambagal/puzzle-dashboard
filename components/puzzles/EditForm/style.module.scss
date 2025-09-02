@@ -1,0 +1,8 @@
+.form { display: flex; flex-direction: column; gap: 1rem; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+.slugRow { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: end; }
+.actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+@media (min-width: 768px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .slugRow { grid-column: 1 / -1; }
+}

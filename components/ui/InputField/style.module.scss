@@ -1,0 +1,32 @@
+/* new colocated SCSS for InputField, adapted from field.module.scss */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.label {
+  font-size: 14px;
+  color: var(--fg, #0f172a);
+  font-weight: 600;
+}
+.input {
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: var(--radius, 8px);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--fg, #0f172a);
+  background: #fff;
+}
+.help {
+  font-size: 12px;
+  color: #6b7280;
+}
+.error {
+  font-size: 12px;
+  color: #b91c1c;
+}
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

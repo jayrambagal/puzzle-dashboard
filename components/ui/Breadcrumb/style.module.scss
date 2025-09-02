@@ -1,0 +1,6 @@
+.nav { margin-bottom: 0.75rem; }
+.list { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.item { color: var(--muted-foreground); font-size: 0.875rem; }
+.item a { color: var(--foreground); text-decoration: none; }
+.item a:hover { text-decoration: underline; }
+.sep { color: var(--muted-foreground); padding: 0 0.25rem; }
