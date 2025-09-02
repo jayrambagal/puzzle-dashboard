@@ -1,0 +1,35 @@
+.wrap {
+  border: 2px dashed var(--border, #e5e7eb);
+  border-radius: var(--radius, 8px);
+  padding: 18px;
+  background: #fff;
+}
+
+.zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #f9fafb;
+  color: #374151;
+  border-radius: var(--radius, 8px);
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.error {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #b91c1c;
+}
+
+.fileName {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #111827;
+}

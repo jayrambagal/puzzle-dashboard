@@ -1,0 +1,9 @@
+.wrap { display: grid; gap: 6px; }
+.label { font-size: 14px; font-weight: 600; }
+.select {
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+}
