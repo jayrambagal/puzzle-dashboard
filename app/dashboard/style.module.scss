@@ -10,6 +10,10 @@
   gap: 12px;
 }
 
+@media (max-width: 768px) {
+  .kpis { grid-template-columns: 1fr; }
+}
+
 .kpi {
   background: #fff;
   border: 1px solid var(--border);

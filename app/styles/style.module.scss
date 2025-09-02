@@ -2,7 +2,7 @@
   --bg: #f3f4f6;          /* neutral */
   --panel: #ffffff;       /* neutral */
   --fg: #0f172a;          /* neutral (text) */
-  --border: #e5e7eb;      /* neutral */
+  --border: #d1d5db;      /* darker border for better section contrast */
   --primary: #2563eb;     /* primary brand blue */
   --radius: 10px;
 
@@ -15,6 +15,10 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 12px; }
 }
 
 .section {
@@ -40,6 +44,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .grid2 { grid-template-columns: 1fr; }
 }
 
 .stack16 {

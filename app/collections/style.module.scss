@@ -1,0 +1,98 @@
+/* New responsive collections page styles with darker borders */
+.page {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.backLink {
+  color: #475569;
+  text-decoration: none;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  flex: 1 1 auto;
+  min-width: 220px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.createBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.section {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.listHead {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #d1d5db;
+  color: #475569;
+  font-size: 14px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listRow {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 16px;
+  color: var(--fg-muted, #475569);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .listHead {
+    display: none;
+  }
+  .listRow {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .cell {
+    white-space: normal;
+  }
+}

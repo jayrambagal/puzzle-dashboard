@@ -117,6 +117,14 @@ export default function EditPuzzlePage() {
     URL.revokeObjectURL(url)
   }
 
+  const ensureDefaults = (m: IPuzzle) => ({
+    scoring: m.scoring ?? { pointsPerCorrect: 10, penaltyPerWrong: 0, timeBonusPerSecond: 0 },
+    display: m.display ?? { shuffleQuestions: true, showHints: true, questionsPerPage: 10 },
+    media: m.media ?? { correctMediaDataUrl: "", wrongMediaDataUrl: "" },
+    contestMode: m.contestMode ?? false,
+    messaging: m.messaging ?? { start: "", pause: "", end: "" },
+  })
+
   return (
     <div className={theme.root}>
       <main className={theme.container}>
@@ -231,6 +239,7 @@ export default function EditPuzzlePage() {
                           model.thumbnailDataUrl ||
                           "/placeholder.svg?height=140&width=280&query=thumbnail%20placeholder" ||
                           "/placeholder.svg" ||
+                          "/placeholder.svg" ||
                           "/placeholder.svg"
                         }
                       />
@@ -255,6 +264,7 @@ export default function EditPuzzlePage() {
                         src={
                           model.socialShareDataUrl ||
                           "/placeholder.svg?height=140&width=280&query=social%20share%20placeholder" ||
+                          "/placeholder.svg" ||
                           "/placeholder.svg" ||
                           "/placeholder.svg"
                         }
@@ -290,6 +300,227 @@ export default function EditPuzzlePage() {
                   Delete Quiz
                 </Button>
               </div>
+            </div>
+          </section>
+
+          <section className={theme.section}>
+            <h2 className={theme.h2}>Gameplay Settings</h2>
+
+            <div className={theme.stack12}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+                <InputField
+                  label="Points per Correct"
+                  type="number"
+                  value={String(ensureDefaults(model).scoring.pointsPerCorrect)}
+                  onChange={(e) =>
+                    setModel((m) =>
+                      m
+                        ? {
+                            ...m,
+                            scoring: {
+                              ...ensureDefaults(m).scoring,
+                              pointsPerCorrect: Number(e.target.value) || 0,
+                            },
+                          }
+                        : m,
+                    )
+                  }
+                />
+                <InputField
+                  label="Penalty per Wrong"
+                  type="number"
+                  value={String(ensureDefaults(model).scoring.penaltyPerWrong)}
+                  onChange={(e) =>
+                    setModel((m) =>
+                      m
+                        ? {
+                            ...m,
+                            scoring: {
+                              ...ensureDefaults(m).scoring,
+                              penaltyPerWrong: Number(e.target.value) || 0,
+                            },
+                          }
+                        : m,
+                    )
+                  }
+                />
+                <InputField
+                  label="Time Bonus / sec"
+                  type="number"
+                  value={String(ensureDefaults(model).scoring.timeBonusPerSecond)}
+                  onChange={(e) =>
+                    setModel((m) =>
+                      m
+                        ? {
+                            ...m,
+                            scoring: {
+                              ...ensureDefaults(m).scoring,
+                              timeBonusPerSecond: Number(e.target.value) || 0,
+                            },
+                          }
+                        : m,
+                    )
+                  }
+                />
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ fontSize: 14, fontWeight: 600 }}>Shuffle Questions</label>
+                  <input
+                    type="checkbox"
+                    checked={ensureDefaults(model).display.shuffleQuestions}
+                    onChange={(e) =>
+                      setModel((m) =>
+                        m ? { ...m, display: { ...ensureDefaults(m).display, shuffleQuestions: e.target.checked } } : m,
+                      )
+                    }
+                    aria-label="Shuffle Questions"
+                    style={{ marginLeft: 8 }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: 14, fontWeight: 600 }}>Show Hints</label>
+                  <input
+                    type="checkbox"
+                    checked={ensureDefaults(model).display.showHints}
+                    onChange={(e) =>
+                      setModel((m) =>
+                        m ? { ...m, display: { ...ensureDefaults(m).display, showHints: e.target.checked } } : m,
+                      )
+                    }
+                    aria-label="Show Hints"
+                    style={{ marginLeft: 8 }}
+                  />
+                </div>
+                <InputField
+                  label="Questions per Page"
+                  type="number"
+                  value={String(ensureDefaults(model).display.questionsPerPage)}
+                  onChange={(e) =>
+                    setModel((m) =>
+                      m
+                        ? {
+                            ...m,
+                            display: {
+                              ...ensureDefaults(m).display,
+                              questionsPerPage: Math.max(1, Number(e.target.value) || 1),
+                            },
+                          }
+                        : m,
+                    )
+                  }
+                />
+              </div>
+
+              <div className={styles.media}>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Correct Answer Media</div>
+                  <div className={styles.preview}>
+                    {ensureDefaults(model).media.correctMediaDataUrl ? (
+                      <img
+                        className={styles.previewImg}
+                        alt="Correct media preview"
+                        src={
+                          ensureDefaults(model).media.correctMediaDataUrl ||
+                          "/placeholder.svg?height=140&width=280&query=correct%20media" ||
+                          "/placeholder.svg"
+                        }
+                      />
+                    ) : (
+                      "No media selected"
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const f = e.target.files?.[0]
+                      if (!f) return
+                      const url = await fileToDataUrl(f)
+                      setModel((m) =>
+                        m ? { ...m, media: { ...ensureDefaults(m).media, correctMediaDataUrl: url } } : m,
+                      )
+                    }}
+                    style={{ marginTop: 8 }}
+                  />
+                </div>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Wrong Answer Media</div>
+                  <div className={styles.preview}>
+                    {ensureDefaults(model).media.wrongMediaDataUrl ? (
+                      <img
+                        className={styles.previewImg}
+                        alt="Wrong media preview"
+                        src={
+                          ensureDefaults(model).media.wrongMediaDataUrl ||
+                          "/placeholder.svg?height=140&width=280&query=wrong%20media" ||
+                          "/placeholder.svg"
+                        }
+                      />
+                    ) : (
+                      "No media selected"
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const f = e.target.files?.[0]
+                      if (!f) return
+                      const url = await fileToDataUrl(f)
+                      setModel((m) => (m ? { ...m, media: { ...ensureDefaults(m).media, wrongMediaDataUrl: url } } : m))
+                    }}
+                    style={{ marginTop: 8 }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ fontSize: 14, fontWeight: 600, marginRight: 8 }}>Enable Contest Mode</label>
+                <input
+                  type="checkbox"
+                  checked={ensureDefaults(model).contestMode}
+                  onChange={(e) => setModel((m) => (m ? { ...m, contestMode: e.target.checked } : m))}
+                  aria-label="Enable Contest Mode"
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className={theme.section}>
+            <h2 className={theme.h2}>Messaging</h2>
+            <div className={theme.stack12}>
+              <TextAreaField
+                label="Start Message"
+                placeholder="Shown before gameplay starts..."
+                value={ensureDefaults(model).messaging.start}
+                onChange={(e) =>
+                  setModel((m) =>
+                    m ? { ...m, messaging: { ...ensureDefaults(m).messaging, start: e.target.value } } : m,
+                  )
+                }
+              />
+              <TextAreaField
+                label="Pause Message"
+                placeholder="Shown when gameplay is paused..."
+                value={ensureDefaults(model).messaging.pause}
+                onChange={(e) =>
+                  setModel((m) =>
+                    m ? { ...m, messaging: { ...ensureDefaults(m).messaging, pause: e.target.value } } : m,
+                  )
+                }
+              />
+              <TextAreaField
+                label="End Message"
+                placeholder="Shown after gameplay ends..."
+                value={ensureDefaults(model).messaging.end}
+                onChange={(e) =>
+                  setModel((m) =>
+                    m ? { ...m, messaging: { ...ensureDefaults(m).messaging, end: e.target.value } } : m,
+                  )
+                }
+              />
             </div>
           </section>
         </div>

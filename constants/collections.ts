@@ -6,3 +6,5 @@ export const DEFAULT_COLLECTIONS: ReadonlyArray<ICollection> = [
   { id: "history", name: "History", createdAt: new Date().toISOString() },
   { id: "sports", name: "Sports", createdAt: new Date().toISOString() },
 ]
+
+export const seedCollections = DEFAULT_COLLECTIONS

@@ -1,11 +1,10 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
 import { DEFAULT_COLLECTIONS } from "@/constants/collections"
 import { Button } from "../ui/Button"
 import { SelectField } from "../ui/SelectField"
-import { InputField } from "../ui/InputField"
-import { Modal } from "../ui/Modal"
 import type { ICollection } from "@/types/collection"
 
 interface IProps {
@@ -14,30 +13,8 @@ interface IProps {
 }
 
 export function CollectionPicker({ value, onChange }: IProps) {
-  const [collections, setCollections] = React.useState<ICollection[]>([...DEFAULT_COLLECTIONS])
-  const [open, setOpen] = React.useState(false)
-  const [newName, setNewName] = React.useState("")
-
+  const [collections] = React.useState<ICollection[]>([...DEFAULT_COLLECTIONS])
   const options = React.useMemo(() => collections.map((c) => c.name), [collections])
-
-  const createCollection = () => {
-    const name = newName.trim()
-    if (!name) return
-    if (collections.some((c) => c.name.toLowerCase() === name.toLowerCase())) {
-      setOpen(false)
-      setNewName("")
-      onChange(name)
-      return
-    }
-    const next = [
-      ...collections,
-      { id: name.toLowerCase().replace(/\s+/g, "-"), name, createdAt: new Date().toISOString() },
-    ]
-    setCollections(next)
-    onChange(name)
-    setNewName("")
-    setOpen(false)
-  }
 
   return (
     <div>
@@ -50,31 +27,10 @@ export function CollectionPicker({ value, onChange }: IProps) {
             options={options.length ? (options as unknown as ReadonlyArray<string>) : (["General"] as const)}
           />
         </div>
-        <Button variant="ghost" onClick={() => setOpen(true)}>
-          Create New Collection
-        </Button>
+        <Link href="/collections" aria-label="Go to Collections">
+          <Button variant="ghost">Create New Collection</Button>
+        </Link>
       </div>
-
-      <Modal
-        title="Create New Collection"
-        open={open}
-        onClose={() => setOpen(false)}
-        actions={
-          <>
-            <Button variant="ghost" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={createCollection}>Create</Button>
-          </>
-        }
-      >
-        <InputField
-          label="Collection Name"
-          placeholder="e.g., Daily Trivia"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-        />
-      </Modal>
     </div>
   )
 }

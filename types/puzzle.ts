@@ -41,9 +41,37 @@ export interface IPuzzle extends IPuzzleFileMeta, IPuzzleMedia {
   status: TPuzzleStatus
   questions: IQuestion[]
   copyright?: string
+  scoring?: IPuzzleScoring
+  display?: IPuzzleDisplay
+  media?: IPuzzleGameplayMedia
+  contestMode?: boolean
+  messaging?: IPuzzleMessaging
 }
 
 export interface IUploadResult {
   questions: IQuestion[]
   rowCount: number
+}
+
+export interface IPuzzleScoring {
+  pointsPerCorrect: number
+  penaltyPerWrong: number
+  timeBonusPerSecond: number
+}
+
+export interface IPuzzleDisplay {
+  shuffleQuestions: boolean
+  showHints: boolean
+  questionsPerPage: number
+}
+
+export interface IPuzzleGameplayMedia {
+  correctMediaDataUrl?: string
+  wrongMediaDataUrl?: string
+}
+
+export interface IPuzzleMessaging {
+  start: string
+  pause: string
+  end: string
 }
