@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import Breadcrumb from "@/components/ui/Breadcrumb"
 
 export default function NewCollectionPage() {
   const [name, setName] = useState("")
@@ -9,10 +10,17 @@ export default function NewCollectionPage() {
 
   return (
     <main style={{ maxWidth: 720, margin: "0 auto", padding: 16 }}>
+      {/* Breadcrumbs replace the manual back link */}
+      <Breadcrumb
+        items={[
+          { label: "Dashboard", href: "/dashboard" },
+          { label: "Collections", href: "/collections" },
+          { label: "New" },
+        ]}
+      />
+
       <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-        <Link href="/collections" aria-label="Back to Collections">
-          ← Back
-        </Link>
+        <div />
         <h1 style={{ fontWeight: 700, fontSize: 20 }}>Create New Collection</h1>
         <div />
       </header>
@@ -38,7 +46,7 @@ export default function NewCollectionPage() {
             aria-label="Collection Description"
             style={{ padding: 10, border: "1px solid var(--border)", borderRadius: "var(--radius)" }}
           />
-          <div>
+          <div style={{ display: "flex", gap: 8 }}>
             <button
               type="button"
               onClick={() => alert(`Created (dummy): ${name || "Untitled"}`)}
@@ -53,6 +61,19 @@ export default function NewCollectionPage() {
             >
               Create
             </button>
+            <Link
+              href="/collections"
+              style={{
+                textDecoration: "none",
+                padding: "10px 14px",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--border)",
+                fontWeight: 600,
+              }}
+              aria-label="Back to Collections"
+            >
+              Cancel
+            </Link>
           </div>
         </div>
       </section>

@@ -53,6 +53,7 @@
     "omponents": "latest",
     "onstants": "latest",
     "ooks": "latest",
+    "p": "latest",
     "pp": "latest",
     "react": "^18",
     "react-day-picker": "9.8.0",

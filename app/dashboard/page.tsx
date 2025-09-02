@@ -12,6 +12,7 @@ import { EditIcon } from "@/components/icons/EditIcon"
 import { usePuzzles } from "@/hooks/usePuzzles"
 import { LANGUAGES, PUZZLE_KINDS } from "@/constants/puzzles"
 import type { IUploadResult, IPuzzle } from "@/types/puzzle"
+import Breadcrumb from "@/components/ui/Breadcrumb"
 
 export default function DashboardPage() {
   const { puzzles, addPuzzle } = usePuzzles()
@@ -70,6 +71,7 @@ export default function DashboardPage() {
   return (
     <div className={theme.root}>
       <main className={theme.container}>
+        <Breadcrumb items={[{ label: "Dashboard" }]} />
         <section className={theme.section}>
           <div className={styles.header}>
             <h1 className={theme.h1}>Puzzle Dashboard (Quizzop™)</h1>
