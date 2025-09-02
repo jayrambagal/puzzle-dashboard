@@ -1,3 +1,39 @@
-.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-.title { font-size: 1.5rem; font-weight: 700; color: #111827; }
-.meta { color: #6b7280; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 0.75rem; }
+.title { font-size: 1.25rem; font-weight: 700; color: var(--foreground); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 1rem; flex-wrap: wrap; }
+.tab, .tabActive {
+  padding: 8px 12px; border: 1px solid transparent; border-bottom: 2px solid transparent; border-radius: var(--radius) var(--radius) 0 0;
+  color: var(--foreground); text-decoration: none;
+}
+.tab:hover { background: var(--muted); }
+.tabActive { background: var(--card); border-color: var(--border); border-bottom-color: var(--primary); font-weight: 600; }
+
+.content { display: grid; gap: 16px; }
+.sectionTitle { font-weight: 700; margin-bottom: 8px; }
+
+.metaGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; background: var(--card); }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+.row { display: flex; align-items: center; gap: 8px; }
+.stack { display: grid; gap: 8px; }
+.label { font-size: 0.875rem; font-weight: 600; color: var(--foreground); }
+.muted { color: var(--muted-foreground); }
+
+.media { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.preview { border: 1px dashed var(--border); border-radius: var(--radius); background: var(--muted); height: 140px; display: grid; place-items: center; color: var(--muted-foreground); }
+.previewImg { width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius); }
+
+.input { width: 100%; padding: 10px; border-radius: var(--radius); border: 1px solid var(--border); }
+.error { color: #b91c1c; font-size: 12px; margin-top: 4px; }
+
+@media (max-width: 900px) {
+  .metaGrid, .grid3, .media { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: 1fr; }
+}

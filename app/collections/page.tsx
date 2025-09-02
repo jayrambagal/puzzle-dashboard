@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Breadcrumb from "@/components/ui/Breadcrumb"
 import styles from "./style.module.scss"
 
 const DEFAULTS = [
@@ -13,10 +14,8 @@ const DEFAULTS = [
 export default function CollectionsPage() {
   return (
     <main className={styles.page}>
+      <Breadcrumb items={[{ label: "Dashboard", href: "/dashboard" }, { label: "Collections" }]} />
       <header className={styles.header}>
-        <Link href="/dashboard" className={styles.backLink} aria-label="Back to Dashboard">
-          ← Back
-        </Link>
         <h1 className={styles.title}>Collections</h1>
         <div className={styles.actions}>
           <Link href="/collections/new" className={styles.createBtn}>
